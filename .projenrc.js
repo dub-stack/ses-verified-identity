@@ -1,5 +1,5 @@
 const { awscdk } = require('projen');
-const { NodePackageManager } = require('projen/lib/javascript');
+const { NodePackageManager, NpmAccess } = require('projen/lib/javascript');
 const project = new awscdk.AwsCdkConstructLibrary({
   // package info
   name: '@dub-stack/ses-verified-identity',
@@ -18,6 +18,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   dependabot: true,
 
   // configure NPM release
+  npmAccess: NpmAccess.PUBLIC,
   defaultReleaseBranch: 'main',
   releaseToNpm: true,
   release: true,
