@@ -4,12 +4,12 @@
 
 ## Classes <a name="Classes" id="Classes"></a>
 
-### Hello <a name="Hello" id="ses-verified-identity.Hello"></a>
+### Hello <a name="Hello" id="@dub-stack/ses-verified-identity.Hello"></a>
 
-#### Initializers <a name="Initializers" id="ses-verified-identity.Hello.Initializer"></a>
+#### Initializers <a name="Initializers" id="@dub-stack/ses-verified-identity.Hello.Initializer"></a>
 
 ```typescript
-import { Hello } from 'ses-verified-identity'
+import { Hello } from '@dub-stack/ses-verified-identity'
 
 new Hello()
 ```
@@ -23,11 +23,11 @@ new Hello()
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#ses-verified-identity.Hello.sayHello">sayHello</a></code> | *No description.* |
+| <code><a href="#@dub-stack/ses-verified-identity.Hello.sayHello">sayHello</a></code> | *No description.* |
 
 ---
 
-##### `sayHello` <a name="sayHello" id="ses-verified-identity.Hello.sayHello"></a>
+##### `sayHello` <a name="sayHello" id="@dub-stack/ses-verified-identity.Hello.sayHello"></a>
 
 ```typescript
 public sayHello(): string

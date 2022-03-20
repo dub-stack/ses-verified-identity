@@ -1,24 +1,24 @@
-const { awscdk } = require("projen");
-const { NodePackageManager } = require("projen/lib/javascript");
+const { awscdk } = require('projen');
+const { NodePackageManager } = require('projen/lib/javascript');
 const project = new awscdk.AwsCdkConstructLibrary({
   // package info
-  name: "@dub-stack/ses-verified-identity",
+  name: '@dub-stack/ses-verified-identity',
   description:
-    "This package provides CDK constructs to create SES Verified Identities. These constructs provide a convenient and" +
-    " familiar interface for granting send permissions to other CDK constructs.",
-  author: "Spencer Duball",
-  authorAddress: "spencer@spencerduball.com",
-  cdkVersion: "2.1.0",
-  repositoryUrl: "git@github.com:dub-stack/ses-verified-identity.git",
+    'This package provides CDK constructs to create SES Verified Identities. These constructs provide a convenient and' +
+    ' familiar interface for granting send permissions to other CDK constructs.',
+  author: 'Spencer Duball',
+  authorAddress: 'spencer@spencerduball.com',
+  cdkVersion: '2.1.0',
+  repositoryUrl: 'git@github.com:dub-stack/ses-verified-identity.git',
   packageManager: NodePackageManager.NPM,
-  license: "MIT",
+  license: 'MIT',
 
   // tooling/project management
   docgen: true,
   dependabot: true,
 
   // configure NPM release
-  defaultReleaseBranch: "main",
+  defaultReleaseBranch: 'main',
   releaseToNpm: true,
   release: true,
 
