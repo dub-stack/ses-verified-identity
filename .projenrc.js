@@ -31,5 +31,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
 // configure tsconfig
 project.tsconfigDev.compilerOptions.noUnusedParameters = false;
+project.tsconfigDev.compilerOptions.noUnusedLocals = false;
 
 project.synth();
