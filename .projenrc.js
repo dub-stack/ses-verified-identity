@@ -27,6 +27,17 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
+
+  // configure githubOptions
+  githubOptions: {
+    pullRequestLintOptions: {
+      semanticTitleOptions: {
+        types: ['feat', 'fix', 'chore', 'build'],
+      },
+    },
+  },
+
+  // configure tsconfig
   tsconfig: {
     compilerOptions: { noUnusedLocals: false, noUnusedParameters: false },
   },
