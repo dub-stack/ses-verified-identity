@@ -1,5 +1,4 @@
-import { IResource, Resource, Stack } from "aws-cdk-lib";
-import { Construct } from "constructs";
+import { IResource, Resource, Stack } from 'aws-cdk-lib';
 import {
   AddToResourcePolicyResult,
   Effect,
@@ -7,18 +6,19 @@ import {
   IGrantable,
   Policy,
   PolicyStatement,
-} from "aws-cdk-lib/aws-iam";
+} from 'aws-cdk-lib/aws-iam';
 import {
   AwsCustomResource,
   AwsCustomResourcePolicy,
   PhysicalResourceId,
-} from "aws-cdk-lib/custom-resources";
+} from 'aws-cdk-lib/custom-resources';
+import { Construct } from 'constructs';
 
 export const VERIFIED_EMAIL_ADDRESS_SEND_ACTIONS = [
-  "ses:SendEmail",
-  "ses:SendTemplatedEmail",
-  "ses:SendRawEmail",
-  "ses:SendBulkTemplatedEmail",
+  'ses:SendEmail',
+  'ses:SendTemplatedEmail',
+  'ses:SendRawEmail',
+  'ses:SendBulkTemplatedEmail',
 ];
 
 export interface IVerifiedEmailAddress extends IResource {
@@ -49,8 +49,7 @@ export interface IVerifiedEmailAddress extends IResource {
 
 export abstract class VerifiedEmailAddressBase
   extends Resource
-  implements IVerifiedEmailAddress
-{
+  implements IVerifiedEmailAddress {
   public abstract readonly verifiedEmailAddressArn: string;
   public abstract readonly verifiedEmailAddressName: string;
 
@@ -60,7 +59,7 @@ export abstract class VerifiedEmailAddressBase
   public abstract policy?: Policy;
 
   public addToResourcePolicy(
-    permission: PolicyStatement
+    permission: PolicyStatement,
   ): AddToResourcePolicyResult {
     if (this.policy) {
       this.policy.document.addStatements(permission);
@@ -68,7 +67,7 @@ export abstract class VerifiedEmailAddressBase
     }
 
     // if no policy, create it with the permission
-    this.policy = new Policy(this, "Policy", {
+    this.policy = new Policy(this, 'Policy', {
       statements: [permission],
       force: true,
     });
@@ -79,8 +78,8 @@ export abstract class VerifiedEmailAddressBase
       `PutIdentityPolicy${this.verifiedEmailAddressName}`,
       {
         onCreate: {
-          service: "SES",
-          action: "putIdentityPolicy",
+          service: 'SES',
+          action: 'putIdentityPolicy',
           parameters: {
             Identity: this.verifiedEmailAddressArn,
             Policy: this.policy.toString(),
@@ -88,12 +87,12 @@ export abstract class VerifiedEmailAddressBase
         },
         policy: AwsCustomResourcePolicy.fromStatements([
           new PolicyStatement({
-            actions: ["ses:PutIdentityPolicy"],
+            actions: ['ses:PutIdentityPolicy'],
             effect: Effect.ALLOW,
             resources: [this.verifiedEmailAddressArn],
           }),
         ]),
-      }
+      },
     );
 
     return { statementAdded: true, policyDependable: this.policy };
@@ -108,7 +107,7 @@ export abstract class VerifiedEmailAddressBase
     return this.grant(
       identity,
       VERIFIED_EMAIL_ADDRESS_SEND_ACTIONS,
-      this.verifiedEmailAddressArn
+      this.verifiedEmailAddressArn,
     );
   }
 
@@ -154,19 +153,19 @@ export class VerifiedEmailAddress extends VerifiedEmailAddressBase {
       `VerifyEmailIdentity${props.verifiedEmailAddressName}`,
       {
         onCreate: {
-          service: "SES",
-          action: "verifyEmailIdentity",
+          service: 'SES',
+          action: 'verifyEmailIdentity',
           parameters: {
             EmailAddress: props.verifiedEmailAddressName,
           },
           physicalResourceId: PhysicalResourceId.of(
-            "verify-" + props.verifiedEmailAddressName
+            'verify-' + props.verifiedEmailAddressName,
           ),
           region: Stack.of(this).region,
         },
         onDelete: {
-          service: "SES",
-          action: "deleteIdentity",
+          service: 'SES',
+          action: 'deleteIdentity',
           parameters: {
             Identity: props.verifiedEmailAddressName,
           },
@@ -174,17 +173,17 @@ export class VerifiedEmailAddress extends VerifiedEmailAddressBase {
         },
         policy: AwsCustomResourcePolicy.fromStatements([
           new PolicyStatement({
-            actions: ["ses:VerifyEmailIdentity"],
+            actions: ['ses:VerifyEmailIdentity'],
             effect: Effect.ALLOW,
-            resources: ["*"],
+            resources: ['*'],
           }),
           new PolicyStatement({
-            actions: ["ses:DeleteIdentity"],
+            actions: ['ses:DeleteIdentity'],
             effect: Effect.ALLOW,
             resources: [this.verifiedEmailAddressArn],
           }),
         ]),
-      }
+      },
     );
   }
 }

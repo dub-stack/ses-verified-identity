@@ -1,7 +1,7 @@
-import { Template } from "aws-cdk-lib/assertions";
-import { App, Stack, StackProps } from "aws-cdk-lib";
-import { VerifiedEmailAddress } from "../src";
-import { Construct } from "constructs";
+import { App, Stack, StackProps } from 'aws-cdk-lib';
+import { Template } from 'aws-cdk-lib/assertions';
+import { Construct } from 'constructs';
+import { VerifiedEmailAddress } from '../src';
 
 class TestStack extends Stack {
   public sampleEmailAddress: VerifiedEmailAddress;
@@ -12,26 +12,26 @@ class TestStack extends Stack {
     // create the VerifiedEmailAddress
     this.sampleEmailAddress = new VerifiedEmailAddress(
       this,
-      "TestEmailAddress",
+      'TestEmailAddress',
       {
-        verifiedEmailAddressName: "test-email@sample.com",
-      }
+        verifiedEmailAddressName: 'test-email@sample.com',
+      },
     );
   }
 }
 
 function setupTest(stackId?: string) {
   const app = new App();
-  const stack = new TestStack(app, stackId ? stackId : "TestStack");
+  const stack = new TestStack(app, stackId ? stackId : 'TestStack');
   const assert = Template.fromStack(stack);
 
   return { app, stack, assert };
 }
 
-describe("VerifiedEmailAddress", () => {
+describe('VerifiedEmailAddress', () => {
   const { app, stack } = setupTest();
 
-  it("temporary passing test", () => {
+  it('temporary passing test', () => {
     expect(true).toBe(true);
   });
 });

@@ -1,1 +1,1 @@
-export * from "./verified-email-address";
+export * from './verified-email-address';
